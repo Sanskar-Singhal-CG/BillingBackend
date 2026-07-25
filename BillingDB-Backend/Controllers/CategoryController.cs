@@ -53,7 +53,7 @@ namespace BillingDB_Backend.Controllers
             var result = await categoryService.editCategory(id, request);
             if (result.Success)
             {
-                return StatusCode(200, result);
+                return Ok(result);
             }
             return NotFound(result);
         }
@@ -64,7 +64,7 @@ namespace BillingDB_Backend.Controllers
             var result = await categoryService.deleteCategory(id);
             if (result.Success)
             {
-                return StatusCode(200, result);
+                return Ok(result);
             }
             return NotFound(result);
         }

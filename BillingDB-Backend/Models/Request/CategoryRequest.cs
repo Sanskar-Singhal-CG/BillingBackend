@@ -6,20 +6,5 @@ namespace BillingDB_Backend.Models.Request
     {
         [Required]
         public string Name { get; set; } = null!;
-
-        [Required]
-        public string ModelNumber { get; set; } = null!;
-
-        [Required]
-        public string HsnCode { get; set; } = null!;
-
-        [Required]
-        public decimal BasePrice { get; set; }
-
-        [Required]
-        public decimal GstRate { get; set; }
-
-        [Required]
-        public int CategoryId { get; set; }
     }
 }

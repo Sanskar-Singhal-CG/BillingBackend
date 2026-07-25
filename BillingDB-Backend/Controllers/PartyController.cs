@@ -30,7 +30,7 @@ namespace BillingDB_Backend.Controllers
             return BadRequest(result);
         }
 
-        [HttpPatch]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> updateParty(int id, [FromBody] PartyRequest request)
         {
             var result = await partyRequestService.updateParty(id, request);

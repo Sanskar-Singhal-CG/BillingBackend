@@ -14,9 +14,11 @@ namespace BillingDB_Backend.Models.Request
         public string HsnCode { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "positive value only")]
         public decimal BasePrice { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue, ErrorMessage = "positive value only")]
         public decimal GstRate { get; set; }
 
         [Required]
