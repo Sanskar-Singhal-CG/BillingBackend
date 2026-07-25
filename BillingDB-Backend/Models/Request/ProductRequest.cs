@@ -2,16 +2,16 @@
 
 namespace BillingDB_Backend.Models.Request
 {
-    public class CategoryRequest
+    public class ProductRequest
     {
         [Required]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; }
 
         [Required]
-        public string ModelNumber { get; set; } = null!;
+        public string ModelNumber { get; set; }
 
         [Required]
-        public string HsnCode { get; set; } = null!;
+        public string HsnCode { get; set; }
 
         [Required]
         public decimal BasePrice { get; set; }
