@@ -10,10 +10,8 @@ namespace BillingDB_Backend.Entities
         [MaxLength(200)]
         public string Name { get; set; } = null!;
 
-        [MaxLength(200)]
-        public string? ContactPerson { get; set; }
-
-        [MaxLength(20)]
+        [MaxLength(20)]     
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be a 10-digit number.")]
         public string? Phone { get; set; }
 
         [MaxLength(500)]
