@@ -5,6 +5,7 @@ using BillingDB_Backend.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var frontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? throw new InvalidOperationException("FrontendUrl is not configured."); ;
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -13,15 +14,16 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IPartyRequestService, PartyRequestService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IPartyProductPriceService, PartyProductPriceService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddPolicy("FrontendPolicy", policy =>
     {
-        builder.AllowAnyOrigin()
+        policy.WithOrigins(frontendUrl)
                .AllowAnyMethod()
                .AllowAnyHeader();
     });

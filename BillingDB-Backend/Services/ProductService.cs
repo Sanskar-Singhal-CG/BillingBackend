@@ -93,6 +93,8 @@ namespace BillingDB_Backend.Services
             product.BasePrice = request.BasePrice;
             product.GstRate = request.GstRate;
             product.CategoryId = request.CategoryId;
+            product.UpdatedAt = DateTime.UtcNow;
+
             await _context.SaveChangesAsync();
 
             return new ApiResponse { Message = "Updated Successfully", Success = true };
