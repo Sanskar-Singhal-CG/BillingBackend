@@ -1,6 +1,5 @@
 ﻿using BillingDB_Backend.Models.Request;
 using BillingDB_Backend.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BillingDB_Backend.Controllers
@@ -16,7 +15,7 @@ namespace BillingDB_Backend.Controllers
             this.partyProductPriceService = partyProductPriceService;
         }
 
-        [HttpGet("${id}")]
+        [HttpGet("${partyId}")]
         public async Task<IActionResult> getAllPartyProductPricingByPartyId(int partyId)
         {
             var result = await partyProductPriceService.getAllPartyProductPricingByPartyId(partyId);

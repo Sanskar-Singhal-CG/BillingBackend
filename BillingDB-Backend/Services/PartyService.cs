@@ -6,11 +6,11 @@ using BillingDB_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 namespace BillingDB_Backend.Services
 {
-    public class PartyRequestService : IPartyRequestService
+    public class PartyService : IPartyService
     {
         private readonly AppDbContext _context;
 
-        public PartyRequestService(AppDbContext context)
+        public PartyService(AppDbContext context)
         {
             _context = context;
         }
@@ -73,6 +73,18 @@ namespace BillingDB_Backend.Services
                 Phone = party.Phone,
                 GSTIN = party.GSTIN
             };
+        }
+
+        public async Task<List<PartyIdNameDto>> getPartiesIdn()
+        {
+            var parties = await _context.Parties
+                .Select(p => new PartyIdNameDto
+                {
+                    id = p.Id,
+                    name = p.Name
+                }).ToListAsync();
+
+            return parties;
         }
 
         public async Task<ApiResponse> deleteParty(int id)

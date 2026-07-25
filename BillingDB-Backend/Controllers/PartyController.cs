@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using BillingDB_Backend.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using BillingDB_Backend.Models.Request;
 using BillingDB_Backend.Services.Interfaces;
 
@@ -10,17 +8,17 @@ namespace BillingDB_Backend.Controllers
     [ApiController]
     public class PartyController : ControllerBase
     {
-        private readonly IPartyRequestService partyRequestService;
+        private readonly IPartyService partyService;
 
-        public PartyController(IPartyRequestService partyRequestService)
+        public PartyController(IPartyService partyService)
         {
-            this.partyRequestService = partyRequestService;
+            this.partyService = partyService;
         }
 
         [HttpPost]
         public async Task<IActionResult> createParty([FromBody] PartyRequest request)
         {
-            var result = await partyRequestService.createParty(request);
+            var result = await partyService.createParty(request);
 
             if (result.Success)
             {
@@ -33,7 +31,7 @@ namespace BillingDB_Backend.Controllers
         [HttpPatch("{id}")]
         public async Task<IActionResult> updateParty(int id, [FromBody] PartyRequest request)
         {
-            var result = await partyRequestService.updateParty(id, request);
+            var result = await partyService.updateParty(id, request);
             if (result.Success)
             {
                 return StatusCode(200, result);
@@ -45,14 +43,14 @@ namespace BillingDB_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> getAllParty()
         {
-            var result = await partyRequestService.getAllParty();
+            var result = await partyService.getAllParty();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> getPartyById(int id)
         {
-            var result = await partyRequestService.getPartyById(id);
+            var result = await partyService.getPartyById(id);
             if (result == null)
             {
                 return NotFound();
@@ -60,10 +58,17 @@ namespace BillingDB_Backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("idn")]
+        public async Task<IActionResult> getPartiesIdn()
+        {
+            var result = await partyService.getPartiesIdn();
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> deleteParty(int id)
         {
-            var result = await partyRequestService.deleteParty(id);
+            var result = await partyService.deleteParty(id);
             if (result.Success)
             {
                 return StatusCode(200, result);
