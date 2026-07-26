@@ -21,5 +21,17 @@ namespace BillingDB_Backend.Controllers
             var result = await _billingInvoiceService.getProductPG(request);
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> createInvoice([FromBody] InvoiceRequest request)
+        {
+            var result = await _billingInvoiceService.createInvoice(request);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return StatusCode(201, result);
+        }
     }
 }

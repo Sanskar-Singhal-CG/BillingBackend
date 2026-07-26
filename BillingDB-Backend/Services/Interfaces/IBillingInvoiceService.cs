@@ -6,5 +6,6 @@ namespace BillingDB_Backend.Services.Interfaces
     public interface IBillingInvoiceService
     {
         public Task<ProductPGResponse> getProductPG(ProductPGRequest request);
+        public Task<InvoiceCreateResponse?> createInvoice(InvoiceRequest request);
     }
 }
