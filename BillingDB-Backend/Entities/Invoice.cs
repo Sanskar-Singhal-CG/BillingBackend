@@ -59,6 +59,8 @@ namespace BillingDB_Backend.Entities
         [MaxLength(20)]
         public string? CompanyBankIFSC { get; set; }
 
+        public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
+
         [Precision(18, 2)]
         public decimal SubTotal { get; set; }
 

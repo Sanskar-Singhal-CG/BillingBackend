@@ -62,6 +62,17 @@ namespace BillingDB_Backend.Services
             return product;
         }
 
+        public async Task<List<ProductIdAndName>> getProductIdName()
+        {
+            var products = await _context.Products
+                .Select(p => new ProductIdAndName
+                {
+                    Id = p.Id,
+                    Name = p.Name
+                }).ToListAsync();
+            return products;
+        }
+
         public async Task<ApiResponse> createProduct(ProductRequest request)
         {
             var product = new Entities.Product

@@ -32,6 +32,12 @@ namespace BillingDB_Backend.Data
 
             modelBuilder.Entity<InvoiceItem>()
                 .HasIndex(x => x.InvoiceId);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

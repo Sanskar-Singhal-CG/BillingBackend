@@ -9,6 +9,7 @@ namespace BillingDB_Backend.Entities
         [MaxLength(200)]
         public string? Name { get; set; }
 
+        public ICollection<Product> Products { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [MaxLength(200)]

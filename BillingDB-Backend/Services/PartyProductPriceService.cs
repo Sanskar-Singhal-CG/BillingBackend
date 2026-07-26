@@ -64,7 +64,6 @@ namespace BillingDB_Backend.Services
 
             partyProductPrice.CustomPrice = customPrice;
 
-            _context.PartyProductPrices.Add(partyProductPrice);
             await _context.SaveChangesAsync();
 
             return new ApiResponse

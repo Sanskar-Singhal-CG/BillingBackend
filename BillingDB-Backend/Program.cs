@@ -1,7 +1,8 @@
+using BillingDB_Backend.Blob;
 using BillingDB_Backend.Data;
-using Microsoft.EntityFrameworkCore;
 using BillingDB_Backend.Services;
 using BillingDB_Backend.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddScoped<IPartyService, PartyService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPartyProductPriceService, PartyProductPriceService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddSingleton<BlobService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,7 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseCors();
+app.UseCors("FrontendPolicy");
 app.MapControllers();
 
 app.Run();

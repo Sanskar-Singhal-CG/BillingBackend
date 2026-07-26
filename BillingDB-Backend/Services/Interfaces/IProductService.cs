@@ -8,6 +8,8 @@ namespace BillingDB_Backend.Services.Interfaces
         public Task<List<ProductDto>> getAllProducts();
         public Task<ProductDto> getProduct(int id);
 
+        public Task<List<ProductIdAndName>> getProductIdName();
+
         public Task<ApiResponse> createProduct(ProductRequest request);
 
         public Task<ApiResponse> updateProduct(int id, ProductRequest request);

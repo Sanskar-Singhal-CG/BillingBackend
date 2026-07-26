@@ -15,7 +15,7 @@ namespace BillingDB_Backend.Controllers
             this.partyProductPriceService = partyProductPriceService;
         }
 
-        [HttpGet("${partyId}")]
+        [HttpGet("{partyId}")]
         public async Task<IActionResult> getAllPartyProductPricingByPartyId(int partyId)
         {
             var result = await partyProductPriceService.getAllPartyProductPricingByPartyId(partyId);

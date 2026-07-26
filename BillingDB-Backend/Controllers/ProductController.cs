@@ -34,6 +34,13 @@ namespace BillingDB_Backend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("idn")]
+        public async Task<IActionResult> getProductIdName()
+        {
+            var result = await productService.getProductIdName();
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> createProduct([FromBody] ProductRequest request)
         {

@@ -75,6 +75,7 @@ namespace BillingDB_Backend.Services
             if(category == null) return new ApiResponse { Message= "Resource Not found", Success = false };
 
             _context.Categories.Remove(category);
+
             await _context.SaveChangesAsync();
 
             return new ApiResponse { Message = "Category deleted successfully", Success = true };
