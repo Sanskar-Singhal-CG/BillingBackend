@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BillingDB_Backend.Models.Request
+﻿namespace BillingDB_Backend.Models.Request
 {
     public class CompanyUpdateRequest
     {

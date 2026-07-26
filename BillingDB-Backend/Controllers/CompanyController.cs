@@ -19,7 +19,7 @@ namespace BillingDB_Backend.Controllers
 
 
         [HttpPatch]
-        public async Task<IActionResult> updateCompanyDetails([FromBody] CompanyUpdateRequest request)
+        public async Task<IActionResult> updateCompanyDetails([FromForm] CompanyUpdateRequest request)
         {
             var result = await companyService.updateCompanyDetails(request);
             return Ok(result);

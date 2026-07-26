@@ -20,9 +20,6 @@ namespace BillingDB_Backend.Entities
         [MaxLength(200)]
         public string? CustomerName { get; set; }
 
-        [MaxLength(200)]
-        public string? CustomerContactPerson { get; set; }
-
         [MaxLength(20)]
         public string? CustomerPhone { get; set; }
 

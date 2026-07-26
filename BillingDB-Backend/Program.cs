@@ -17,6 +17,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPartyProductPriceService, PartyProductPriceService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IBillingInvoiceService, BillingInvoiceService>();
 builder.Services.AddSingleton<BlobService>();
 
 builder.Services.AddEndpointsApiExplorer();

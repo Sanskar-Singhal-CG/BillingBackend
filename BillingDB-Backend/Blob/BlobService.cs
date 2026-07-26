@@ -34,7 +34,8 @@ namespace BillingDB_Backend.Blob
         {
             if (string.IsNullOrEmpty(url)) return null;
 
-            var blobClient = new BlobClient(new Uri(url));
+            var blobName = Path.GetFileName(new Uri(url).LocalPath);
+            var blobClient = _container.GetBlobClient(blobName);
 
             var response = await blobClient.DownloadStreamingAsync();
             return response.Value.Content;

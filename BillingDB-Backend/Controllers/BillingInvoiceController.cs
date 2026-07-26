@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BillingDB_Backend.Models.Request;
+using BillingDB_Backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BillingDB_Backend.Controllers
@@ -7,5 +8,18 @@ namespace BillingDB_Backend.Controllers
     [ApiController]
     public class BillingInvoiceController : ControllerBase
     {
+        private readonly IBillingInvoiceService _billingInvoiceService; 
+        
+        public BillingInvoiceController(IBillingInvoiceService billingInvoiceService)
+        {
+            _billingInvoiceService = billingInvoiceService;
+        }
+
+        [HttpPost("getProdPG")]
+        public async Task<IActionResult> getProductPG([FromBody] ProductPGRequest request)
+        {
+            var result = await _billingInvoiceService.getProductPG(request);
+            return Ok(result);
+        }
     }
 }
