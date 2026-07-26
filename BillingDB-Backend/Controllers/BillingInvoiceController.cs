@@ -33,5 +33,17 @@ namespace BillingDB_Backend.Controllers
 
             return StatusCode(201, result);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> getInvoice(int id)
+        {
+            var result = await _billingInvoiceService.getInvoice(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
     }
 }

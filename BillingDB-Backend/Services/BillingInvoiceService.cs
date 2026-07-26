@@ -1,4 +1,5 @@
-﻿using BillingDB_Backend.Data;
+﻿using BillingDB_Backend.Blob;
+using BillingDB_Backend.Data;
 using BillingDB_Backend.Models.Request;
 using BillingDB_Backend.Models.Response;
 using BillingDB_Backend.Services.Interfaces;
@@ -10,10 +11,12 @@ namespace BillingDB_Backend.Services
     {
 
         private readonly AppDbContext _context;
+        private readonly BlobService _blobService;
 
-        public BillingInvoiceService(AppDbContext context)
+        public BillingInvoiceService(AppDbContext context, BlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
 
         public async Task<ProductPGResponse> getProductPG(ProductPGRequest request)
@@ -103,6 +106,71 @@ namespace BillingDB_Backend.Services
             {
                 InvoiceId = invoice.Id,
                 InvoiceNumber = invoice.InvoiceNumber
+            };
+        }
+
+        public async Task<InvoiceDetailsResponse?> getInvoice(int id)
+        {
+            var invoice = await _context.Invoices
+                .AsNoTracking()
+                .Include(invoice => invoice.Items)
+                .FirstOrDefaultAsync(invoice => invoice.Id == id);
+
+            if (invoice == null)
+            {
+                return null;
+            }
+
+            byte[]? signatureFile = null;
+            if (!string.IsNullOrEmpty(invoice.CompanySignatureUrl))
+            {
+                var signatureStream = await _blobService.GetSignatureAsync(invoice.CompanySignatureUrl);
+                if (signatureStream != null)
+                {
+                    using (signatureStream)
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await signatureStream.CopyToAsync(memoryStream);
+                        signatureFile = memoryStream.ToArray();
+                    }
+                }
+            }
+
+            return new InvoiceDetailsResponse
+            {
+                InvoiceId = invoice.Id,
+                InvoiceNumber = invoice.InvoiceNumber,
+                InvoiceDate = invoice.InvoiceDate,
+                CustomerId = invoice.CustomerId,
+                CustomerName = invoice.CustomerName,
+                CustomerPhone = invoice.CustomerPhone,
+                CustomerAddress = invoice.CustomerAddress,
+                CustomerGSTIN = invoice.CustomerGSTIN,
+                CompanyName = invoice.CompanyName,
+                CompanyAddress = invoice.CompanyAddress,
+                CompanyGSTIN = invoice.CompanyGSTIN,
+                CompanyPhone = invoice.CompanyPhone,
+                CompanyEmail = invoice.CompanyEmail,
+                SignatureFile = signatureFile,
+                CompanyBankName = invoice.CompanyBankName,
+                CompanyBankAccount = invoice.CompanyBankAccount,
+                CompanyBankIFSC = invoice.CompanyBankIFSC,
+                SubTotal = invoice.SubTotal,
+                TotalGst = invoice.TotalGst,
+                GrandTotal = invoice.GrandTotal,
+                Items = invoice.Items.OrderBy(item => item.Id).Select(item => new InvoiceItemDetailsResponse
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ModelNumber = item.ModelNumber,
+                    HsnCode = item.HsnCode,
+                    Quantity = item.Quantity,
+                    Rate = item.Rate,
+                    SubTotal = item.SubTotal,
+                    GstRate = item.GstRate,
+                    GstAmount = item.GstAmount,
+                    Total = item.Total
+                }).ToList()
             };
         }
     }
