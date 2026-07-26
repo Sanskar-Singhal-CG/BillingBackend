@@ -173,5 +173,19 @@ namespace BillingDB_Backend.Services
                 }).ToList()
             };
         }
+
+        public async Task<List<InvoiceIdNameDateResponse>> getInvoiceIdNameAndDate(int partyId)
+        {
+            var result = await _context.Invoices
+                .Where(i => i.CustomerId == partyId)
+                .Select(i => new InvoiceIdNameDateResponse
+                {
+                    Id = i.Id,
+                    InvoiceNumber = i.InvoiceNumber,
+                    InvoiceDate = i.InvoiceDate
+                }).ToListAsync();
+
+            return result;
+        }
     }
 }

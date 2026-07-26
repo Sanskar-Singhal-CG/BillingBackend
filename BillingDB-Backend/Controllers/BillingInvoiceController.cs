@@ -45,5 +45,12 @@ namespace BillingDB_Backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("getInvoiceIdNameAndDate/{partyId}")]
+        public async Task<IActionResult> getInvoiceIdNameAndDate(int partyId)
+        {
+            var result = await _billingInvoiceService.getInvoiceIdNameAndDate(partyId);
+            return Ok(result);
+        }
     }
 }
