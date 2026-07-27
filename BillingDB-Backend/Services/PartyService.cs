@@ -72,5 +72,14 @@ namespace BillingDB_Backend.Services
 
             return parties;
         }
+
+        public async Task<ApiResponse> deleteParty(int id)
+        {
+            var party = await _context.Parties.FindAsync(id);
+            if (party == null) return new ApiResponse { Message = "Bad Request", Success = false };
+            _context.Parties.Remove(party);
+            await _context.SaveChangesAsync();
+            return new ApiResponse { Message = "Party deleted successfully", Success = true };
+        }
     }
 }

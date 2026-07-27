@@ -44,6 +44,12 @@ namespace BillingDB_Backend.Data
                 .WithMany()
                 .HasForeignKey(p => p.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PartyProductPrice>()
+                .HasOne(p => p.Party)
+                .WithMany()
+                .HasForeignKey(p => p.PartyId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
