@@ -29,17 +29,6 @@ namespace BillingDB_Backend.Services
             return categories;
         }
 
-        public async Task<CategoryDto> getCategoryById(int id)
-        {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null) return null;
-            return new CategoryDto
-            {
-                Id = category.Id,
-                Name = category.Name
-            };
-        }
-
         public async Task<ApiResponse> createCategory(CategoryRequest request)
         {
             var category = new Entities.Category

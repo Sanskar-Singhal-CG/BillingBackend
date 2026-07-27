@@ -22,18 +22,6 @@ namespace BillingDB_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> getProduct(int id)
-        {
-            var result = await productService.getProduct(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(result);
-        }
-
         [HttpGet("idn")]
         public async Task<IActionResult> getProductIdName()
         {

@@ -10,9 +10,6 @@ namespace BillingDB_Backend.Services.Interfaces
 
         public Task<List<PartyDto>> getAllParty();
 
-        public Task<PartyDto> getPartyById(int id);
-
-        public Task<ApiResponse> deleteParty(int id);
         public Task<List<PartyIdNameDto>> getPartiesIdn();
     }
 }

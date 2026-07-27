@@ -47,34 +47,11 @@ namespace BillingDB_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> getPartyById(int id)
-        {
-            var result = await partyService.getPartyById(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
-
         [HttpGet("idn")]
         public async Task<IActionResult> getPartiesIdn()
         {
             var result = await partyService.getPartiesIdn();
             return Ok(result);
         }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> deleteParty(int id)
-        {
-            var result = await partyService.deleteParty(id);
-            if (result.Success)
-            {
-                return StatusCode(200, result);
-            }
-            return BadRequest(result);
-        }
-
     }
 }

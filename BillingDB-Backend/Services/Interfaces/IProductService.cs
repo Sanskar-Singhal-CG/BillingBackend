@@ -6,7 +6,6 @@ namespace BillingDB_Backend.Services.Interfaces
     public interface IProductService
     {
         public Task<List<ProductDto>> getAllProducts();
-        public Task<ProductDto> getProduct(int id);
 
         public Task<List<ProductIdAndName>> getProductIdName();
 

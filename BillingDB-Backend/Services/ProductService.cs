@@ -36,32 +36,6 @@ namespace BillingDB_Backend.Services
             return products;
         }
 
-        public async Task<ProductDto> getProduct(int id)
-        {
-            var product = await _context.Products.Where(p => p.Id == id)
-                .Select(p => new ProductDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    ModelNumber = p.ModelNumber,
-                    HsnCode = p.HsnCode,
-                    BasePrice = p.BasePrice,
-                    GstRate = p.GstRate,
-                    Category = p.Category != null ? new CategoryDto
-                    {
-                        Id = p.Category.Id,
-                        Name = p.Category.Name
-                    } : null
-                }).FirstOrDefaultAsync();
-
-            if (product == null)
-            {
-                return null;
-            }
-
-            return product;
-        }
-
         public async Task<List<ProductIdAndName>> getProductIdName()
         {
             var products = await _context.Products

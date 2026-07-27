@@ -23,17 +23,6 @@ namespace BillingDB_Backend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> getCategoryById(int id)
-        {
-            var result = await categoryService.getCategoryById(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
-
         [HttpPost]
         public async Task<IActionResult> createCategory([FromBody] CategoryRequest request)
         {

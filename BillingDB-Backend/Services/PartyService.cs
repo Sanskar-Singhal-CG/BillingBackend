@@ -61,20 +61,6 @@ namespace BillingDB_Backend.Services
             return parties;
         }
 
-        public async Task<PartyDto> getPartyById(int id)
-        {
-            var party = await _context.Parties.FindAsync(id);
-            if (party == null) return null;
-            return new PartyDto
-            {
-                Id = party.Id,
-                Name = party.Name,
-                BillingAddress = party.BillingAddress,
-                Phone = party.Phone,
-                GSTIN = party.GSTIN
-            };
-        }
-
         public async Task<List<PartyIdNameDto>> getPartiesIdn()
         {
             var parties = await _context.Parties
@@ -85,18 +71,6 @@ namespace BillingDB_Backend.Services
                 }).ToListAsync();
 
             return parties;
-        }
-
-        public async Task<ApiResponse> deleteParty(int id)
-        {
-            var party = await _context.Parties.FindAsync(id);
-
-            if (party == null) return new ApiResponse { Message = "Bad Request", Success = false };
-
-            _context.Parties.Remove(party);
-            await _context.SaveChangesAsync();
-
-            return new ApiResponse { Message = "Party deleted successfully", Success = true };
         }
     }
 }
