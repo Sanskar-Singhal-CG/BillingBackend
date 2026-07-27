@@ -38,11 +38,14 @@ namespace BillingDB_Backend.Services
             company.BankAccount = request.BankAccount;
             company.BankIFSC = request.BankIFSC;
 
+
+            // uploading the signature file to the blob storage here and then i am getting the url of the uploaded file
             if (request.SignatureFile != null)
             {
                 var url = await _blobService.UploadAsync(request.SignatureFile);
                 company.SignatureUrl = url;
             }
+
 
             await _context.SaveChangesAsync();
 
@@ -55,9 +58,12 @@ namespace BillingDB_Backend.Services
             var company = await _context.Companies.FindAsync(id);
             if (company == null) return null;
 
+
+            //same logic here to download the signature file from blob and then convert it to byte array
             var stream = await _blobService.GetSignatureAsync(company.SignatureUrl);
             using var memoryStream = new MemoryStream();
             await stream!.CopyToAsync(memoryStream);
+
 
             return new CompanyDto
             {

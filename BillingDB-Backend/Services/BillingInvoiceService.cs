@@ -121,6 +121,8 @@ namespace BillingDB_Backend.Services
                 return null;
             }
 
+
+            // download the signature file from the blob storage here (used ai for this download and conversion to byte array)
             byte[]? signatureFile = null;
             if (!string.IsNullOrEmpty(invoice.CompanySignatureUrl))
             {

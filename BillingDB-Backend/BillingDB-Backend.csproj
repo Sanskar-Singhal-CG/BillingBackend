@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>BillingDB_Backend</RootNamespace>
+    <UserSecretsId>d37048ee-8a53-49ad-be4c-a7a736659dad</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
