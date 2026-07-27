@@ -1,7 +1,5 @@
 ﻿using Azure.Storage.Blobs;
 
-//I used AI for this code -_-
-
 namespace BillingDB_Backend.Blob
 {
     public class BlobService

@@ -38,9 +38,6 @@ namespace BillingDB_Backend.Services
             return new ProductPGResponse { Price = customPrice ?? product.BasePrice, GstRate = product.GstRate };
         }
 
-
-        //Used ai for this 
-
         public async Task<InvoiceCreateResponse?> createInvoice(InvoiceRequest request)
         {
             var customer = await _context.Parties.FindAsync(request.CustomerId);
@@ -122,7 +119,7 @@ namespace BillingDB_Backend.Services
             }
 
 
-            // download the signature file from the blob storage here (used ai for this download and conversion to byte array)
+            // download the signature file from the blob storage here and convert it to byte array
             byte[]? signatureFile = null;
             if (!string.IsNullOrEmpty(invoice.CompanySignatureUrl))
             {

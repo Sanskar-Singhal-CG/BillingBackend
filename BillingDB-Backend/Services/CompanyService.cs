@@ -4,9 +4,6 @@ using BillingDB_Backend.Models.Request;
 using BillingDB_Backend.Models.Response;
 using BillingDB_Backend.Services.Interfaces;
 
-
-// I used ai here for configuration of the azure blob and the image file upload and for handling of file upload and download.
-
 namespace BillingDB_Backend.Services
 {
     public class CompanyService : ICompanyService
